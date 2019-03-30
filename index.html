@@ -17,9 +17,6 @@
     <script src='js/materialize.min.js'></script>
  
 
-    <!-- GOOGLE MAP API -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDihtGB2yvEZybh_nwMGyew5tj8fWRLafM&callback=initMap"
-    type="text/javascript"></script>
 
     <!-- ICONS -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -27,37 +24,39 @@
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
-
-    <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> -->
-
+    
+    
+    <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> --> 
 </head>
 
-
-
-    <div class="input-wrapper">
-        <div class="row">
-            <div class="input-field col s6">
-                <form id="myform">
-                        <i class="material-icons prefix">directions_run</i>
-                        <input class="left validate" id="field" name="field" placeholder="Desired Distance to Run">
-                        <span class="helper-text" data-error="Wrong distance entered" data-success=""></span>
-                </form>
-            </div>
+<div class="input-wrapper">
+    <div class="row">
+        <div class="input-field col s6">
+            <form id="myform">
+                <i class="material-icons prefix">directions_run</i>
+                <input class="left validate" id="field" name="field" placeholder="Desired Distance to Run">
+                <span class="helper-text" data-error="Wrong distance entered" data-success=""></span>
+            </form>
         </div>
     </div>
-
-
-    <div class="wrapper clearfix">
-        <div class="app-panel"></div>
-    </div>
-
-    <div class="map-panel">
+</div>
+        
+        <div class="wrapper clearfix">
+            <div class="app-panel"></div>
+        </div>
+        
+        <div class="map-panel">
             <div id="map"></div>
-    </div>
+        </div>
 
-    <script src='js/inputfield.js'></script>
-    <script src='map.js'></script>
+        
+    <!-- GOOGLE MAP API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDihtGB2yvEZybh_nwMGyew5tj8fWRLafM&callback=initMap" type="text/javascript"></script>
     
+    <script src='map.js'></script> 
+    <!-- <script src='js/inputfield.js'></script>   -->
+        
+            
 </body>
 
 </html>

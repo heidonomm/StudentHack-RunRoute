@@ -1,4 +1,3 @@
-
 jQuery.validator.setDefaults({
     debug: true,
     success: "valid"
@@ -18,8 +17,8 @@ jQuery.validator.setDefaults({
     }   
     });
 
-var distance = document.getElementById("field");
-distance.addEventListener("keydown", function (e) {
+var distanceField = document.getElementById("field");
+distanceField.addEventListener("keydown", function (e) {
     if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
         validate(e);
     }
@@ -28,19 +27,16 @@ distance.addEventListener("keydown", function (e) {
 
 function validate(e)
 {
-    var x = e.target.value;
+    var distance = e.target.value;
 
-    if (isNaN(x)) 
+    if (isNaN(distance)) 
     {
         return false;
     } else {
         var center = [53.4746886, -2.2334728];
-        console.log(center);
-        var radius = x;
+        var radius = distance / (2 * Math.PI);
         console.log(radius);
         var options = {steps: 10, units: 'kilometers', properties: {foo: 'bar'}};
-        console.log(options);
-        console.log('I work');
         var circle = turf.circle(center, radius, options);
         console.log(circle);
         console.log(circle.geometry.coordinates);

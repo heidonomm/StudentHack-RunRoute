@@ -2,6 +2,7 @@
 // Initialize and add the map
 var pos;
 var map;
+
 function initMap() {
 
     var manchester = {lat: 53.4808, lng: 2.2426};
@@ -24,12 +25,12 @@ function initMap() {
         infoWindow.setContent('You are here');
         infoWindow.open(map);
         map.setCenter(pos);
-        var nextLoc = nextLocation(pos.lat, pos.lng);
 
         nextLocation(pos.lat, pos.lng, 1, 45);
         nextLocation(pos.lat, pos.lng, 1, 135);
         nextLocation(pos.lat, pos.lng, 1, -135);
         nextLocation(pos.lat, pos.lng, 1, -45);
+
         // addMarker(nextLoc);
         // var marker = new google.maps.Marker();
         // marker.setPosition(new google.maps.LatLng());
@@ -78,13 +79,18 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
     destination: pos,
     traveslMode: WALKING,
     unitSystem: METRICS,
+<<<<<<< HEAD
     waypoints: test
+=======
+    waypoints:yes
+>>>>>>> 3ba74f66a770dcd896dacc694a30933fb5429ce0
 
 
 
   })
 }
 
+<<<<<<< HEAD
 
 
 // function addMarker(coordinates) {
@@ -114,6 +120,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
 
 
 
+=======
+>>>>>>> 3ba74f66a770dcd896dacc694a30933fb5429ce0
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(browserHasGeolocation ?

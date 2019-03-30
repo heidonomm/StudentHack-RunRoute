@@ -3,8 +3,7 @@ function initMap() {
  
     var manchester = {lat: 53.4808, lng: 2.2426};
     // The map, centered at Uluru
-    var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 14, center: manchester});
+    var map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: manchester});
     infoWindow = new google.maps.InfoWindow;
     // Try HTML5 geolocation.
     if (navigator.geolocation) {

@@ -24,7 +24,7 @@ function initMap() {
         map.setCenter(pos);
 
         var nextLoc = nextLocation(pos.lat, pos.lng);
-        addMarker(nextLoc);
+        // addMarker(nextLoc);
         // var marker = new google.maps.Marker();
         // marker.setPosition(new google.maps.LatLng());
 
@@ -49,7 +49,7 @@ function nextLocation(lat, long) {
 
   let newLoc = turf.destination(currentPoint, 1, 45).geometry.coordinates;
 
-  var coord = {lat:coordinates[0], lng: coordinates[1]};
+  var coord = {lat:newLoc[0], lng: newLoc[1]};
 
   //let coord = google.maps.LatLng(parseFloat(coordinates[0]), parseFloat(coordinates[1]));
 

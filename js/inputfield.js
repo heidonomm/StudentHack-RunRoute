@@ -1,3 +1,4 @@
+
 jQuery.validator.setDefaults({
     debug: true,
     success: "valid"
@@ -11,10 +12,10 @@ jQuery.validator.setDefaults({
     },
     messages: {
         field: {
-            required: "We need a distance.",
+            required: "Please enter a distance.",
             digits: "You need to enter a digit."
         }
-    }
+    }   
     });
 
 var distance = document.getElementById("field");
@@ -32,5 +33,19 @@ function validate(e)
     if (isNaN(x)) 
     {
         return false;
-    } 
+    } else {
+        var center = [53.4746886, -2.2334728];
+        console.log(center);
+        var radius = x;
+        console.log(radius);
+        var options = {steps: 10, units: 'kilometers', properties: {foo: 'bar'}};
+        console.log(options);
+        console.log('I work');
+        var circle = turf.circle(center, radius, options);
+        console.log(circle);
+        console.log(circle.geometry.coordinates);
+        console.log(circle.geometry.coordinates[0][1]);
+        console.log(circle.geometry.coordinates[0][2]);
+    }
 }
+

@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/heidonomm/StudentHack-RunRoute#readme",
   "dependencies": {
+    "@turf/circle": "^6.0.1",
     "@turf/destination": "^6.0.1",
     "express": "^4.16.4",
     "jquery-validation": "^1.19.0"

@@ -1,3 +1,4 @@
 module.exports = {
-    destination: require('@turf/destination')
+    destination: require('@turf/destination'),
+    circle: require('@turf/circle')
 };

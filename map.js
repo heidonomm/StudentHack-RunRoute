@@ -26,14 +26,20 @@ function initMap() {
         map.setCenter(pos);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         var nextLoc = nextLocation(pos.lat, pos.lng);
 =======
+=======
+>>>>>>> something
 
         nextLocation(pos.lat, pos.lng, 1, 45);
         nextLocation(pos.lat, pos.lng, 1, 135);
         nextLocation(pos.lat, pos.lng, 1, -135);
         nextLocation(pos.lat, pos.lng, 1, -45);
 
+<<<<<<< HEAD
+>>>>>>> something
+=======
 >>>>>>> something
         // addMarker(nextLoc);
         // var marker = new google.maps.Marker();

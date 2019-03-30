@@ -2,19 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link type="text/css" rel="stylesheet" href="./style.css">
+    <link type="text/css" rel="stylesheet" href="style/style.css">
     
     <title>RunRoute</title>
 
-        <!-- SCRIPT FOR TURF.JS -->
+    <!-- SCRIPT FOR TURF.JS -->
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    
+    <script src='map.js'></script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDihtGB2yvEZybh_nwMGyew5tj8fWRLafM&callback=initMap"
+    type="text/javascript"></script>
 </head>
 <body>
-        <div class="wrapper clearfix">
+    <div class="wrapper clearfix">
 
-                <div class="app-panel">
-                        <h1>Hello kalkun!</h1>
-                </div>
+        <div class="app-panel">
+                  <h1>Hello kalkun!</h1>
+                  <div id="map"></div>
         </div>
+    </div>
 </body>
 
 </html>

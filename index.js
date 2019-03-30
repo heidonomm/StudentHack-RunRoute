@@ -3,7 +3,7 @@ var app = express();
 var http = require('http').Server(app);
 var path = require('path');
 
-var collect = require('@turf/directions');
+var collect = require('@turf/destination');
  
 const portNumber = process.env.port || 3000;
  

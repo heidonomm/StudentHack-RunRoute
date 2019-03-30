@@ -24,6 +24,7 @@ distanceField.addEventListener("keydown", function (e) {
     }
 });
 
+var circle;
 
 function validate(e)
 {
@@ -37,11 +38,11 @@ function validate(e)
         var radius = distance / (2 * Math.PI);
         console.log(radius);
         var options = {steps: 10, units: 'kilometers', properties: {foo: 'bar'}};
-        var circle = turf.circle(center, radius, options);
+        circle = turf.circle(center, radius, options);
         console.log(circle);
         console.log(circle.geometry.coordinates);
         console.log(circle.geometry.coordinates[0][1]);
         console.log(circle.geometry.coordinates[0][2]);
     }
 }
-
+console.log(circle);

@@ -24,23 +24,12 @@ function initMap() {
         infoWindow.setContent('You are here');
         infoWindow.open(map);
         map.setCenter(pos);
-
-<<<<<<< HEAD
-<<<<<<< HEAD
         var nextLoc = nextLocation(pos.lat, pos.lng);
-=======
-=======
->>>>>>> something
 
         nextLocation(pos.lat, pos.lng, 1, 45);
         nextLocation(pos.lat, pos.lng, 1, 135);
         nextLocation(pos.lat, pos.lng, 1, -135);
         nextLocation(pos.lat, pos.lng, 1, -45);
-
-<<<<<<< HEAD
->>>>>>> something
-=======
->>>>>>> something
         // addMarker(nextLoc);
         // var marker = new google.maps.Marker();
         // marker.setPosition(new google.maps.LatLng());
@@ -56,7 +45,7 @@ function initMap() {
     }
 }
 
-
+console.log(circle);  
 
 function nextLocation(lat, long, length, angle) {
 
@@ -89,12 +78,13 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
     destination: pos,
     traveslMode: WALKING,
     unitSystem: METRICS,
-    waypoints:
+    waypoints: test
 
 
 
   })
 }
+
 
 
 // function addMarker(coordinates) {

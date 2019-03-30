@@ -10,7 +10,7 @@
         } else if (typeof global !== "undefined") {
             g = global
         } else if (typeof self !== "undefined") {
-            g = self
+            g = self    
         } else {
             g = this
         }

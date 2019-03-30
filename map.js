@@ -9,6 +9,8 @@ function initMap() {
       document.getElementById('map'), {zoom: 14, center: manchester});
 
     infoWindow = new google.maps.InfoWindow;
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
 
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -23,7 +25,16 @@ function initMap() {
         infoWindow.open(map);
         map.setCenter(pos);
 
+<<<<<<< HEAD
         var nextLoc = nextLocation(pos.lat, pos.lng);
+=======
+
+        nextLocation(pos.lat, pos.lng, 1, 45);
+        nextLocation(pos.lat, pos.lng, 1, 135);
+        nextLocation(pos.lat, pos.lng, 1, -135);
+        nextLocation(pos.lat, pos.lng, 1, -45);
+
+>>>>>>> something
         // addMarker(nextLoc);
         // var marker = new google.maps.Marker();
         // marker.setPosition(new google.maps.LatLng());
@@ -40,14 +51,15 @@ function initMap() {
 }
 
 
-function nextLocation(lat, long) {
+
+function nextLocation(lat, long, length, angle) {
 
   let currentLocation = [ lat, long ];
   console.log("Previous coordinates " + currentLocation);
   
   let currentPoint = turf.point(currentLocation);
 
-  let newLoc = turf.destination(currentPoint, 1, 45).geometry.coordinates;
+  let newLoc = turf.destination(currentPoint, length, angle).geometry.coordinates;
 
   var coord = {lat:newLoc[0], lng: newLoc[1]};
 
@@ -59,7 +71,25 @@ function nextLocation(lat, long) {
     visible: true
   });
   marker.setMap(map);
+
+  
 }
+
+
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoints) {
+  directionsService.route({
+    origin: pos,
+    destination: pos,
+    traveslMode: WALKING,
+    unitSystem: METRICS,
+    waypoints:
+
+
+
+  })
+}
+
 
 // function addMarker(coordinates) {
 //   var coord = {lat:coordinates[0], lng: coordinates[1]};

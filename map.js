@@ -28,6 +28,8 @@ distanceField.addEventListener("keydown", function (e) {
   }
 });
 
+
+var waypointsArray;
 function validate(e)
 {
   var distance = e.target.value;
@@ -43,15 +45,15 @@ function validate(e)
       circle = turf.circle(center, radius, options);
       console.log(circle);
 
-      var waypointsArray = new Array();
+      waypointsArray = new Array();
 
       for (var index = 0; index < 11; index++) {
         let currentArray = [circle.geometry.coordinates[0][index][0], circle.geometry.coordinates[0][index][1]];
         waypointsArray.push(currentArray);
       }
-      console.log(waypointsArray[0][0]);
+
       for (var i = 0; i < waypointsArray.length; i++) {
-      var coord = {lat:waypointsArray[i][0], lng: waypointsArray[i][1]};
+        var coord = {lat:waypointsArray[i][0], lng: waypointsArray[i][1]};
         let marker = new google.maps.Marker({
           position: coord,
           title: 'new Coordinates!',
@@ -60,13 +62,26 @@ function validate(e)
         marker.setMap(map);
       }
       console.log(waypointsArray);
+      calculateAndDisplayRoute(directionsService, directionsDisplay, waypointsArray);
   }
 }
+
+
+
+/*
+
+MAP STARTS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
+
+*/
+
 
 
 // Initialize and add the map
 var pos;
 var map;
+var directionsService;
+var directionsDisplay;
 
 function initMap() {
 
@@ -74,8 +89,10 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: manchester});
 
     infoWindow = new google.maps.InfoWindow;
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer;
+
+    directionsDisplay.setMap(map);
 
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -110,37 +127,29 @@ function initMap() {
     }
 }
 
-// function nextLocation(lat, long, length, angle) {
+function calculateAndDisplayRoute(directionsService, directionsDisplay, waypointsArray) {
+  var waypts = [];
 
-//   let currentLocation = [ lat, long ];
-//   console.log("Previous coordinates " + currentLocation);
-  
-//   let currentPoint = turf.point(currentLocation);
+  for (var i = 0; i < waypointsArray.length; i++)
+  {
+    waypts.push({
+      location: waypointsArray[0]
+    })
+  }
 
-//   let newLoc = turf.destination(currentPoint, length, angle).geometry.coordinates;
-
-//   var coord = {lat:newLoc[0], lng: newLoc[1]};
-
-//   //let coord = google.maps.LatLng(parseFloat(coordinates[0]), parseFloat(coordinates[1]));
-
-//   let marker = new google.maps.Marker({
-//     position: coord,
-//     title: 'new Coordinates!',
-//     visible: true
-//   });
-//   marker.setMap(map);
-// }
-
-function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoints) {
   directionsService.route({
     origin: pos,
     destination: pos,
-    traveslMode: WALKING,
-    unitSystem: METRICS,
-    waypoints: yes
+    travelMode: 'WALKING',
+    unitSystem: 'METRICS',
+    waypoints: waypts
 
-
-
+  }, (res, stat) => {
+    if (stat == 'OK') {
+      directionsDisplay.setDirections(res);
+    } else {
+      window.alert('Directions error ' + stat);
+    }
   })
 }
 

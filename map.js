@@ -47,21 +47,26 @@ function validate(e)
 
       waypointsArray = new Array();
 
-      for (var index = 0; index < 11; index++) {
+      for (var index = 0; index < 10; index++) {
         let currentArray = [circle.geometry.coordinates[0][index][0], circle.geometry.coordinates[0][index][1]];
         waypointsArray.push(currentArray);
       }
 
-      for (var i = 0; i < waypointsArray.length; i++) {
-        var coord = {lat:waypointsArray[i][0], lng: waypointsArray[i][1]};
-        let marker = new google.maps.Marker({
-          position: coord,
-          title: 'new Coordinates!',
-          visible: true
-        });
-        marker.setMap(map);
-      }
+      waypointsArray.pop();
+      waypointsArray.splice(0, 1);
       console.log(waypointsArray);
+
+      // THIS IS FOR ADDING WAYPOINTS ON THE MAP (TESTING PURPOSES).
+      // for (var i = 0; i < waypointsArray.length; i++) {
+      //   var coord = {lat:waypointsArray[i][0], lng: waypointsArray[i][1]};
+      //   let marker = new google.maps.Marker({
+      //     position: coord,
+      //     title: 'new Coordinates!',
+      //     visible: true
+      //   });
+      //   marker.setMap(map);
+      // }
+      
       calculateAndDisplayRoute(directionsService, directionsDisplay, waypointsArray);
   }
 }
@@ -133,7 +138,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
   for (var i = 0; i < waypointsArray.length; i++)
   {
     waypts.push({
-      location: waypointsArray[0]
+      location: { lat: waypointsArray[i][0], lng: waypointsArray[i][1] }
     })
   }
 
@@ -141,8 +146,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
     origin: pos,
     destination: pos,
     travelMode: 'WALKING',
-    unitSystem: 'METRICS',
-    waypoints: waypts
+    waypoints: waypts,
+    optimizeWaypoints: true
 
   }, (res, stat) => {
     if (stat == 'OK') {

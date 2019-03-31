@@ -1,5 +1,6 @@
 var circle;
 var circlePoints;
+var computedDistance;
 
 jQuery.validator.setDefaults({
     debug: true,
@@ -28,8 +29,8 @@ distanceField.addEventListener("keydown", function (e) {
   }
 });
 
-
 var waypointsArray;
+
 function validate(e)
 {
   var distance = e.target.value;
@@ -52,7 +53,7 @@ function validate(e)
       // let pointLeft = turf.destination(currentPoint, sideLength, initialAngle - 90).geometry.coordinates;
 
       // var coord1 = {lat: pointOpposite[0], lng: pointOpposite[1]};
-      // var coord2 = {lat: pointRight[0], lng: pointRight[1]};
+      // var coord2 = {lat: pointRi[============================================================2-ght[0], lng: pointRight[1]};
       // var coord3 = {lat: pointLeft[0], lng: pointLeft[1]};
       // console.log(pointOpposite[0]);
       // console.log(pointRight[0]);
@@ -74,8 +75,8 @@ function validate(e)
       circle = turf.circle(center, radius, options);
       console.log(circle);
 
-      center[0] *= Math.random;
-      center[1] *= Math.random;
+      initCounter(computedDistance);
+
       waypointsArray = new Array();
 
       for (var index = 0; index < 10; index++) {
@@ -107,7 +108,11 @@ var directionsDisplay;
 function initMap() {
 
     var manchester = {lat: 53.4808, lng: 2.2426};
-    map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: manchester});
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 14, 
+      center: manchester,
+      disableDefaultUI: true
+    });
 
     infoWindow = new google.maps.InfoWindow;
     directionsService = new google.maps.DirectionsService;
@@ -141,15 +146,17 @@ function initMap() {
 
 }
 
+
 function calculateAndDisplayRoute(directionsService, directionsDisplay, waypointsArray) {
   var waypts = [];
-
+  
   for (var i = 0; i < waypointsArray.length; i++)
   {
     waypts.push({
       location: { lat: waypointsArray[i][0], lng: waypointsArray[i][1] }
     })
   }
+  computedDistance = computeTotalDistance(waypts);
 
   directionsService.route({
     origin: pos,
@@ -168,6 +175,30 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
       window.alert('Directions error ' + stat);
     }
   })
+}
+
+function initCounter(calculatedDistance) {
+
+  document.querySelector('.counter').textContent = 0;
+  $('.counter').each(function() {
+    var $this = $(this),
+        countTo = totalDistance;
+    
+    $({ countNum: $this.text()}).animate({
+      countNum: countTo
+    },
+    {
+  
+      duration: 2000,
+      easing:'swing',
+      step: function() {
+        $this.text(Math.floor(this.countNum));
+      },
+      complete: function() {
+        $this.text(this.countNum);
+      }
+    });  
+  });
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -197,5 +228,3 @@ function newCircle(currentLocation, distance) {
 
 
 }
-
-

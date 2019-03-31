@@ -164,6 +164,19 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
     if (stat == 'OK') {
       directionsDisplay.setDirections(res);
       console.log(res);
+      var length = 0;
+      for (var index = 0; index < 9; index++) {
+        let currentLength = res.routes[0].legs[index].distance.text;
+        if (currentLength.slice(-2) === ' m') {
+          length += parseFloat(currentLength) / 1000;
+        }
+        else {
+          length += parseFloat(currentLength);
+        }
+
+      }
+      console.log("Total length of the route " + length);
+
     } else {
       window.alert('Directions error ' + stat);
     }
@@ -178,24 +191,24 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
-function newCircle(currentLocation, distance) {
+// function newCircle(currentLocation, distance) {
 
-  var diameter = distance / Math.PI;
-  var sideLength = diameter / Math.PI;
-  min = Math.ceil(-180);
-  max = Math.floor(180);
-  var initialAngle = Math.floor(Math.random() * (max - min + 1) + min);
+//   var diameter = distance / Math.PI;
+//   var sideLength = diameter / Math.PI;
+//   min = Math.ceil(-180);
+//   max = Math.floor(180);
+//   var initialAngle = Math.floor(Math.random() * (max - min + 1) + min);
 
-  let currentPoint = turf.point(currentLocation);
-  let pointOpposite = turf.destination(currentPoint, diameter, initialAngle).geometry.coordinates;
-  let pointRight = turf.destination(currentPoint, sideLength, initialAngle + 90).geometry.coordinates;
-  let pointLeft = turf.destination(currentPoint, sideLength, initialAngle - 90).geometry.coordinates;
+//   let currentPoint = turf.point(currentLocation);
+//   let pointOpposite = turf.destination(currentPoint, diameter, initialAngle).geometry.coordinates;
+//   let pointRight = turf.destination(currentPoint, sideLength, initialAngle + 90).geometry.coordinates;
+//   let pointLeft = turf.destination(currentPoint, sideLength, initialAngle - 90).geometry.coordinates;
 
-  var coord1 = {lat: pointOpposite[0], lng: pointOpposite[1]};
-  var coord2 = {lat: pointRight[0], lng: pointRight[1]};
-  var coord3 = {lat: pointLeft[0], lng: pointLeft[1]};
+//   var coord1 = {lat: pointOpposite[0], lng: pointOpposite[1]};
+//   var coord2 = {lat: pointRight[0], lng: pointRight[1]};
+//   var coord3 = {lat: pointLeft[0], lng: pointLeft[1]};
 
 
-}
+// }
 
 

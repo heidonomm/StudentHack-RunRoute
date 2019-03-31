@@ -55,6 +55,7 @@ function validate(e)
 
       // var coord1 = {lat: pointOpposite[0], lng: pointOpposite[1]};
       // var coord2 = {lat: pointRi[============================================================2-ght[0], lng: pointRight[1]};
+      // var coord2 = {lat: pointRight[0], lng: pointRight[1]};
       // var coord3 = {lat: pointLeft[0], lng: pointLeft[1]};
       // console.log(pointOpposite[0]);
       // console.log(pointRight[0]);
@@ -259,3 +260,23 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 // }
 // }
+// }
+function newCircle(currentLocation, distance) {
+
+  var diameter = distance / Math.PI;
+  var sideLength = diameter / Math.PI;
+  min = Math.ceil(-180);
+  max = Math.floor(180);
+  var initialAngle = Math.floor(Math.random() * (max - min + 1) + min);
+
+  let currentPoint = turf.point(currentLocation);
+  let pointOpposite = turf.destination(currentPoint, diameter, initialAngle).geometry.coordinates;
+  let pointRight = turf.destination(currentPoint, sideLength, initialAngle + 90).geometry.coordinates;
+  let pointLeft = turf.destination(currentPoint, sideLength, initialAngle - 90).geometry.coordinates;
+
+  var coord1 = {lat: pointOpposite[0], lng: pointOpposite[1]};
+  var coord2 = {lat: pointRight[0], lng: pointRight[1]};
+  var coord3 = {lat: pointLeft[0], lng: pointLeft[1]};
+
+
+}

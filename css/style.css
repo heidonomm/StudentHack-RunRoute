@@ -62,9 +62,9 @@ body {
 /*****************************/
 
 .input-wrapper-1 {
-    width: 35%;
+    width: 37%;
     position: absolute;
-    top: 23%;
+    top: 20%;
     left: 45%;
     transform: translate(-50%, -50%);
     z-index: 2;
@@ -75,6 +75,15 @@ body {
     position: absolute;
     top: 20%;
     left: 75%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.input-wrapper-3 {
+    width: 35%;
+    position: absolute;
+    top: 15%;
+    left: 68.5%;
     transform: translate(-50%, -50%);
     z-index: 2;
 }
@@ -108,17 +117,17 @@ body {
   }
 
 /*****************************/
-/*        INPUT FIELD        */ 
+/*          COUNTER          */ 
 /*****************************/
 
-  .counter {
-    display: table-cell;
+  .counter, .counter-text {
+    /* display: table-cell;
     margin:1.5%;
-    text-align: center;
-    font-size:50px;
-    background-color: #FF6F6F;
+    text-align: center; */
+    font-size: 50px;
+    /* background-color: #FF6F6F;
     width:80px;
     border-radius: 50%;
-    height:60px;
+    height:60px; */
     vertical-align: middle;
   }

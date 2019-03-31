@@ -1,6 +1,6 @@
 var circle;
 var circlePoints;
-var computedDistance;
+var length;
 
 jQuery.validator.setDefaults({
     debug: true,
@@ -15,8 +15,8 @@ jQuery.validator.setDefaults({
     },
     messages: {
         field: {
-            required: "Please enter a distance.",
-            digits: "You need to enter a digit."
+            required: "Please enter a distance in KM.",
+            digits: "You need to enter a distance in KM."
         }
     }   
     });
@@ -67,7 +67,7 @@ function validate(e)
       // ];
       
 
-      var radius = distance / (2 * Math.PI);
+      var radius = (distance - 0.5) / (2 * Math.PI);
       console.log(radius);
       var randomAngle = Math.floor(Math.random() * (max - min + 1) + min);
       var options = {steps: 10, units: 'kilometers', properties: {foo: 'bar'}};
@@ -75,7 +75,6 @@ function validate(e)
       circle = turf.circle(center, radius, options);
       console.log(circle);
 
-      initCounter(computedDistance);
 
       waypointsArray = new Array();
 
@@ -156,7 +155,6 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
       location: { lat: waypointsArray[i][0], lng: waypointsArray[i][1] }
     })
   }
-  computedDistance = computeTotalDistance(waypts);
 
   directionsService.route({
     origin: pos,
@@ -171,7 +169,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
     if (stat == 'OK') {
       directionsDisplay.setDirections(res);
       console.log(res);
-      var length = 0;
+      length = 0;
       for (var index = 0; index < 9; index++) {
         let currentLength = res.routes[0].legs[index].distance.text;
         if (currentLength.slice(-2) === ' m') {
@@ -182,6 +180,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
         }
 
       }
+      initCounter(length.toFixed(1));
       console.log("Total length of the route " + length);
 
     } else {
@@ -190,12 +189,12 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
   })
 }
 
-function initCounter(calculatedDistance) {
+function initCounter(length) {
 
   document.querySelector('.counter').textContent = 0;
   $('.counter').each(function() {
     var $this = $(this),
-        countTo = totalDistance;
+        countTo = length;
     
     $({ countNum: $this.text()}).animate({
       countNum: countTo
@@ -240,7 +239,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 //   var coord3 = {lat: pointLeft[0], lng: pointLeft[1]};
 
 
-}
+// }
 // }
 
 

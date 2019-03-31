@@ -39,13 +39,15 @@ function validate(e)
       return false;
   } else {
       initMap();
-      var center = [53.4746886, -2.2334728];
+      var center = [pos.lat, pos.lng];
       var radius = distance / (2 * Math.PI);
       console.log(radius);
       var options = {steps: 10, units: 'kilometers', properties: {foo: 'bar'}};
       circle = turf.circle(center, radius, options);
       console.log(circle);
 
+      center[0] *= Math.random;
+      center[1] *= Math.random;
       waypointsArray = new Array();
 
       for (var index = 0; index < 10; index++) {
@@ -81,7 +83,7 @@ function initMap() {
 
     infoWindow = new google.maps.InfoWindow;
     directionsService = new google.maps.DirectionsService;
-    directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
 
     directionsDisplay.setMap(map);
 
@@ -92,6 +94,7 @@ function initMap() {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
+        console.log(pos);
 
         infoWindow.setPosition(pos);
         infoWindow.setContent('You are here');
@@ -107,6 +110,12 @@ function initMap() {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
     }
+
+    var icons = {
+      location: {
+        icon: '/css/posarrow.png'
+      }
+    };
 
     // map = new google.maps.Map(document.getElementById('map'), {
     //   center: manchester,
@@ -210,7 +219,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
     travelMode: 'WALKING',
     waypoints: waypts,
     optimizeWaypoints: true,
-    provideRouteAlternatives: true
+    provideRouteAlternatives: true,
+    avoidHighways: true
 
   }, (res, stat) => {
     if (stat == 'OK') {

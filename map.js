@@ -38,6 +38,7 @@ function validate(e)
   {
       return false;
   } else {
+      initMap();
       var center = [53.4746886, -2.2334728];
       var radius = distance / (2 * Math.PI);
       console.log(radius);
@@ -55,17 +56,6 @@ function validate(e)
       waypointsArray.pop();
       waypointsArray.splice(0, 1);
       console.log(waypointsArray);
-
-      // THIS IS FOR ADDING WAYPOINTS ON THE MAP (TESTING PURPOSES).
-      // for (var i = 0; i < waypointsArray.length; i++) {
-      //   var coord = {lat:waypointsArray[i][0], lng: waypointsArray[i][1]};
-      //   let marker = new google.maps.Marker({
-      //     position: coord,
-      //     title: 'new Coordinates!',
-      //     visible: true
-      //   });
-      //   marker.setMap(map);
-      // }
       
       calculateAndDisplayRoute(directionsService, directionsDisplay, waypointsArray);
   }
@@ -74,12 +64,8 @@ function validate(e)
 
 
 /*
-
 MAP STARTS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-
-
 */
-
 
 
 // Initialize and add the map
@@ -112,15 +98,6 @@ function initMap() {
         infoWindow.open(map);
         map.setCenter(pos);
 
-        // nextLocation(pos.lat, pos.lng, 1, 45);
-        // nextLocation(pos.lat, pos.lng, 1, 135);
-        // nextLocation(pos.lat, pos.lng, 1, -135);
-        // nextLocation(pos.lat, pos.lng, 1, -45);
-
-        // addMarker(nextLoc);
-        // var marker = new google.maps.Marker();
-        // marker.setPosition(new google.maps.LatLng());
-
         }, () => {
           handleLocationError(true, infoWindow, map.getCenter());
         }
@@ -130,6 +107,91 @@ function initMap() {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
     }
+
+    // map = new google.maps.Map(document.getElementById('map'), {
+    //   center: manchester,
+    //   zoom: 12,
+    //   styles: [
+    //     {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+    //     {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+    //     {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+    //     {
+    //       featureType: 'administrative.locality',
+    //       elementType: 'labels.text.fill',
+    //       stylers: [{color: '#d59563'}]
+    //     },
+    //     {
+    //       featureType: 'poi',
+    //       elementType: 'labels.text.fill',
+    //       stylers: [{color: '#d59563'}]
+    //     },
+    //     {
+    //       featureType: 'poi.park',
+    //       elementType: 'geometry',
+    //       stylers: [{color: '#263c3f'}]
+    //     },
+    //     {
+    //       featureType: 'poi.park',
+    //       elementType: 'labels.text.fill',
+    //       stylers: [{color: '#6b9a76'}]
+    //     },
+    //     {
+    //       featureType: 'road',
+    //       elementType: 'geometry',
+    //       stylers: [{color: '#38414e'}]
+    //     },
+    //     {
+    //       featureType: 'road',
+    //       elementType: 'geometry.stroke',
+    //       stylers: [{color: '#212a37'}]
+    //     },
+    //     {
+    //       featureType: 'road',
+    //       elementType: 'labels.text.fill',
+    //       stylers: [{color: '#9ca5b3'}]
+    //     },
+    //     {
+    //       featureType: 'road.highway',
+    //       elementType: 'geometry',
+    //       stylers: [{color: '#746855'}]
+    //     },
+    //     {
+    //       featureType: 'road.highway',
+    //       elementType: 'geometry.stroke',
+    //       stylers: [{color: '#1f2835'}]
+    //     },
+    //     {
+    //       featureType: 'road.highway',
+    //       elementType: 'labels.text.fill',
+    //       stylers: [{color: '#f3d19c'}]
+    //     },
+    //     {
+    //       featureType: 'transit',
+    //       elementType: 'geometry',
+    //       stylers: [{color: '#2f3948'}]
+    //     },
+    //     {
+    //       featureType: 'transit.station',
+    //       elementType: 'labels.text.fill',
+    //       stylers: [{color: '#d59563'}]
+    //     },
+    //     {
+    //       featureType: 'water',
+    //       elementType: 'geometry',
+    //       stylers: [{color: '#17263c'}]
+    //     },
+    //     {
+    //       featureType: 'water',
+    //       elementType: 'labels.text.fill',
+    //       stylers: [{color: '#515c6d'}]
+    //     },
+    //     {
+    //       featureType: 'water',
+    //       elementType: 'labels.text.stroke',
+    //       stylers: [{color: '#17263c'}]
+    //     }
+    //   ]
+    // });
 }
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay, waypointsArray) {
@@ -147,11 +209,13 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
     destination: pos,
     travelMode: 'WALKING',
     waypoints: waypts,
-    optimizeWaypoints: true
+    optimizeWaypoints: true,
+    provideRouteAlternatives: true
 
   }, (res, stat) => {
     if (stat == 'OK') {
       directionsDisplay.setDirections(res);
+      console.log(res);
     } else {
       window.alert('Directions error ' + stat);
     }

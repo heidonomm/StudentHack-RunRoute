@@ -1,5 +1,6 @@
 var circle;
 var circlePoints;
+var length;
 
 jQuery.validator.setDefaults({
     debug: true,
@@ -14,8 +15,8 @@ jQuery.validator.setDefaults({
     },
     messages: {
         field: {
-            required: "Please enter a distance.",
-            digits: "You need to enter a digit."
+            required: "Please enter a distance in KM.",
+            digits: "You need to enter a distance in KM."
         }
     }   
     });
@@ -28,8 +29,8 @@ distanceField.addEventListener("keydown", function (e) {
   }
 });
 
-
 var waypointsArray;
+
 function validate(e)
 {
   var distance = e.target.value;
@@ -52,7 +53,7 @@ function validate(e)
       // let pointLeft = turf.destination(currentPoint, sideLength, initialAngle - 90).geometry.coordinates;
 
       // var coord1 = {lat: pointOpposite[0], lng: pointOpposite[1]};
-      // var coord2 = {lat: pointRight[0], lng: pointRight[1]};
+      // var coord2 = {lat: pointRi[============================================================2-ght[0], lng: pointRight[1]};
       // var coord3 = {lat: pointLeft[0], lng: pointLeft[1]};
       // console.log(pointOpposite[0]);
       // console.log(pointRight[0]);
@@ -66,7 +67,7 @@ function validate(e)
       // ];
       
 
-      var radius = distance / (2 * Math.PI);
+      var radius = (distance - 0.5) / (2 * Math.PI);
       console.log(radius);
       var randomAngle = Math.floor(Math.random() * (max - min + 1) + min);
       var options = {steps: 10, units: 'kilometers', properties: {foo: 'bar'}};
@@ -74,8 +75,7 @@ function validate(e)
       circle = turf.circle(center, radius, options);
       console.log(circle);
 
-      center[0] *= Math.random;
-      center[1] *= Math.random;
+
       waypointsArray = new Array();
 
       for (var index = 0; index < 10; index++) {
@@ -107,7 +107,11 @@ var directionsDisplay;
 function initMap() {
 
     var manchester = {lat: 53.4808, lng: 2.2426};
-    map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: manchester});
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 14, 
+      center: manchester,
+      disableDefaultUI: true
+    });
 
     infoWindow = new google.maps.InfoWindow;
     directionsService = new google.maps.DirectionsService;
@@ -141,9 +145,10 @@ function initMap() {
 
 }
 
+
 function calculateAndDisplayRoute(directionsService, directionsDisplay, waypointsArray) {
   var waypts = [];
-
+  
   for (var i = 0; i < waypointsArray.length; i++)
   {
     waypts.push({
@@ -164,7 +169,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
     if (stat == 'OK') {
       directionsDisplay.setDirections(res);
       console.log(res);
-      var length = 0;
+      length = 0;
       for (var index = 0; index < 9; index++) {
         let currentLength = res.routes[0].legs[index].distance.text;
         if (currentLength.slice(-2) === ' m') {
@@ -175,6 +180,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
         }
 
       }
+      initCounter(length.toFixed(1));
       console.log("Total length of the route " + length);
 
       var customURL = "https://www.google.com/maps/dir/?api=1&origin=" + pos.lat + "," + pos.lng + "&destination=" +
@@ -193,6 +199,30 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
       window.alert('Directions error ' + stat);
     }
   })
+}
+
+function initCounter(length) {
+
+  document.querySelector('.counter').textContent = 0;
+  $('.counter').each(function() {
+    var $this = $(this),
+        countTo = length;
+    
+    $({ countNum: $this.text()}).animate({
+      countNum: countTo
+    },
+    {
+  
+      duration: 2000,
+      easing:'swing',
+      step: function() {
+        $this.text(Math.floor(this.countNum));
+      },
+      complete: function() {
+        $this.text(this.countNum);
+      }
+    });  
+  });
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -221,6 +251,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 //   var coord3 = {lat: pointLeft[0], lng: pointLeft[1]};
 
 
+// }
 // }
 
 

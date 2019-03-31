@@ -61,11 +61,29 @@ body {
 /*        INPUT FIELD        */ 
 /*****************************/
 
-.input-wrapper {
+.input-wrapper-1 {
+    width: 37%;
+    position: absolute;
+    top: 20%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.input-wrapper-2 {
     width: 35%;
     position: absolute;
-    top: 25%;
-    left: 57%;
+    top: 20%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.input-wrapper-3 {
+    width: 35%;
+    position: absolute;
+    top: 15%;
+    left: 68.5%;
     transform: translate(-50%, -50%);
     z-index: 2;
 }
@@ -96,4 +114,20 @@ body {
   /* icon prefix focus color */
   .input-field .prefix.active {
     color: #000;
+  }
+
+/*****************************/
+/*          COUNTER          */ 
+/*****************************/
+
+  .counter, .counter-text {
+    /* display: table-cell;
+    margin:1.5%;
+    text-align: center; */
+    font-size: 50px;
+    /* background-color: #FF6F6F;
+    width:80px;
+    border-radius: 50%;
+    height:60px; */
+    vertical-align: middle;
   }

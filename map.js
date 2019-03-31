@@ -177,6 +177,18 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
       }
       console.log("Total length of the route " + length);
 
+      var customURL = "https://www.google.com/maps/dir/?api=1&origin=" + pos.lat + "," + pos.lng + "&destination=" +
+                      pos.lat + "," + pos.lng + "&travelmode=walking&waypoints=";
+      for (let i = 0; i < waypts.length; i++) {
+        customURL += "" + waypts[i].location.lat + "," + waypts[i].location.lng;
+        if (i != waypts.length -1)
+          customURL += "|";
+      }
+
+      console.log(customURL);
+
+
+
     } else {
       window.alert('Directions error ' + stat);
     }

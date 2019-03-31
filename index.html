@@ -44,26 +44,30 @@
         <p>Distance in KM that you would have to run:</p>
 </div>
 
-<div class="input-wrapper-2">
-        <div class="counter" data-count="150">0</div> 
+<div class="button">
+    <button style="display: none;" onclick="redirect()" id="customButton" target="_blank">Võmp</button>
 </div>
-        
-        <div class="wrapper clearfix">
-            <div class="app-panel"></div>
-        </div>
-        
-        <div class="map-panel"> 
-            <div id="map"></div>
-        </div>
 
-        
-    <!-- GOOGLE MAP API -->
+<div class="input-wrapper-2">
+    <div class="counter" data-count="150">0</div> 
+</div>
+
+<div class="wrapper clearfix">
+    <div class="app-panel"></div>
+</div>
+
+<div class="map-panel"> 
+    <div id="map"></div>
+</div>
+
+
+<!-- GOOGLE MAP API -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDihtGB2yvEZybh_nwMGyew5tj8fWRLafM&callback=initMap" type="text/javascript"></script>
     
     <script src='map.js'></script> 
     <!-- <script src='js/inputfield.js'></script>   -->
-        
-            
+    
+    
 </body>
 
 </html>

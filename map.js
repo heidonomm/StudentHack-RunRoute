@@ -1,6 +1,7 @@
 var circle;
 var circlePoints;
 var length;
+var customURL;
 
 jQuery.validator.setDefaults({
     debug: true,
@@ -65,7 +66,7 @@ function validate(e)
       //   coord2,
       //   coord3
       // ];
-      
+      document.getElementById('customButton').style.display = 'block';
 
       var radius = (distance - 0.5) / (2 * Math.PI);
       console.log(radius);
@@ -181,9 +182,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
 
       }
       initCounter(length.toFixed(1));
-      console.log("Total length of the route " + length);
 
-      var customURL = "https://www.google.com/maps/dir/?api=1&origin=" + pos.lat + "," + pos.lng + "&destination=" +
+      customURL = "https://www.google.com/maps/dir/?api=1&origin=" + pos.lat + "," + pos.lng + "&destination=" +
                       pos.lat + "," + pos.lng + "&travelmode=walking&waypoints=";
       for (let i = 0; i < waypts.length; i++) {
         customURL += "" + waypts[i].location.lat + "," + waypts[i].location.lng;
@@ -194,12 +194,18 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, waypoint
       console.log(customURL);
 
 
-
     } else {
       window.alert('Directions error ' + stat);
     }
   })
 }
+
+function redirect() {
+  console.log('TESTINGIASHACS');
+  console.log(customURL);
+  location.href = customURL;
+};
+
 
 function initCounter(length) {
 
@@ -253,5 +259,3 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 // }
 // }
-
-

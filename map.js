@@ -40,9 +40,37 @@ function validate(e)
   } else {
       initMap();
       var center = [pos.lat, pos.lng];
+      // var diameter = distance / Math.PI;
+      // var sideLength = diameter / Math.PI;
+      var min = Math.ceil(-180);
+      var max = Math.floor(180);
+      // var initialAngle = Math.floor(Math.random() * (max - min + 1) + min);
+
+      // let currentPoint = turf.point(center);
+      // let pointOpposite = turf.destination(currentPoint, diameter, initialAngle).geometry.coordinates;
+      // let pointRight = turf.destination(currentPoint, sideLength, initialAngle + 90).geometry.coordinates;
+      // let pointLeft = turf.destination(currentPoint, sideLength, initialAngle - 90).geometry.coordinates;
+
+      // var coord1 = {lat: pointOpposite[0], lng: pointOpposite[1]};
+      // var coord2 = {lat: pointRight[0], lng: pointRight[1]};
+      // var coord3 = {lat: pointLeft[0], lng: pointLeft[1]};
+      // console.log(pointOpposite[0]);
+      // console.log(pointRight[0]);
+      // console.log(pointLeft[0]);
+
+
+      // waypointsArray = [
+      //   coord1,
+      //   coord2,
+      //   coord3
+      // ];
+      
+
       var radius = distance / (2 * Math.PI);
       console.log(radius);
+      var randomAngle = Math.floor(Math.random() * (max - min + 1) + min);
       var options = {steps: 10, units: 'kilometers', properties: {foo: 'bar'}};
+      center = turf.destination(center, radius, randomAngle)
       circle = turf.circle(center, radius, options);
       console.log(circle);
 
@@ -111,96 +139,6 @@ function initMap() {
         handleLocationError(false, infoWindow, map.getCenter());
     }
 
-    var icons = {
-      location: {
-        icon: '/css/posarrow.png'
-      }
-    };
-
-    // map = new google.maps.Map(document.getElementById('map'), {
-    //   center: manchester,
-    //   zoom: 12,
-    //   styles: [
-    //     {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-    //     {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-    //     {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-    //     {
-    //       featureType: 'administrative.locality',
-    //       elementType: 'labels.text.fill',
-    //       stylers: [{color: '#d59563'}]
-    //     },
-    //     {
-    //       featureType: 'poi',
-    //       elementType: 'labels.text.fill',
-    //       stylers: [{color: '#d59563'}]
-    //     },
-    //     {
-    //       featureType: 'poi.park',
-    //       elementType: 'geometry',
-    //       stylers: [{color: '#263c3f'}]
-    //     },
-    //     {
-    //       featureType: 'poi.park',
-    //       elementType: 'labels.text.fill',
-    //       stylers: [{color: '#6b9a76'}]
-    //     },
-    //     {
-    //       featureType: 'road',
-    //       elementType: 'geometry',
-    //       stylers: [{color: '#38414e'}]
-    //     },
-    //     {
-    //       featureType: 'road',
-    //       elementType: 'geometry.stroke',
-    //       stylers: [{color: '#212a37'}]
-    //     },
-    //     {
-    //       featureType: 'road',
-    //       elementType: 'labels.text.fill',
-    //       stylers: [{color: '#9ca5b3'}]
-    //     },
-    //     {
-    //       featureType: 'road.highway',
-    //       elementType: 'geometry',
-    //       stylers: [{color: '#746855'}]
-    //     },
-    //     {
-    //       featureType: 'road.highway',
-    //       elementType: 'geometry.stroke',
-    //       stylers: [{color: '#1f2835'}]
-    //     },
-    //     {
-    //       featureType: 'road.highway',
-    //       elementType: 'labels.text.fill',
-    //       stylers: [{color: '#f3d19c'}]
-    //     },
-    //     {
-    //       featureType: 'transit',
-    //       elementType: 'geometry',
-    //       stylers: [{color: '#2f3948'}]
-    //     },
-    //     {
-    //       featureType: 'transit.station',
-    //       elementType: 'labels.text.fill',
-    //       stylers: [{color: '#d59563'}]
-    //     },
-    //     {
-    //       featureType: 'water',
-    //       elementType: 'geometry',
-    //       stylers: [{color: '#17263c'}]
-    //     },
-    //     {
-    //       featureType: 'water',
-    //       elementType: 'labels.text.fill',
-    //       stylers: [{color: '#515c6d'}]
-    //     },
-    //     {
-    //       featureType: 'water',
-    //       elementType: 'labels.text.stroke',
-    //       stylers: [{color: '#17263c'}]
-    //     }
-    //   ]
-    // });
 }
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay, waypointsArray) {
@@ -238,6 +176,26 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: The Geolocation service failed.' :
                         'Error: Your browser doesn\'t support geolocation.');
   infoWindow.open(map);
+}
+
+function newCircle(currentLocation, distance) {
+
+  var diameter = distance / Math.PI;
+  var sideLength = diameter / Math.PI;
+  min = Math.ceil(-180);
+  max = Math.floor(180);
+  var initialAngle = Math.floor(Math.random() * (max - min + 1) + min);
+
+  let currentPoint = turf.point(currentLocation);
+  let pointOpposite = turf.destination(currentPoint, diameter, initialAngle).geometry.coordinates;
+  let pointRight = turf.destination(currentPoint, sideLength, initialAngle + 90).geometry.coordinates;
+  let pointLeft = turf.destination(currentPoint, sideLength, initialAngle - 90).geometry.coordinates;
+
+  var coord1 = {lat: pointOpposite[0], lng: pointOpposite[1]};
+  var coord2 = {lat: pointRight[0], lng: pointRight[1]};
+  var coord3 = {lat: pointLeft[0], lng: pointLeft[1]};
+
+
 }
 
 
